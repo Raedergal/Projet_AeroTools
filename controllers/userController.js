@@ -129,8 +129,6 @@ exports.displayTechnicians = async (req, res) => {
 
 exports.createTechnicians = async (req, res) => {
     try {
-        console.log(req.body);
-
         const user = await prisma.user.create({
             data: {
                 lastName: req.body.lastName,

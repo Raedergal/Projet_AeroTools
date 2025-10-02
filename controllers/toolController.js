@@ -8,8 +8,6 @@ exports.displayTools = async (req, res) => {
             user: true
         }
     })
-    console.log(tools);
-
     res.render("pages/dashboard/partials/tools.twig", {
         currentPath: res.locals.currentPath,
         login: req.session.login,
@@ -19,12 +17,12 @@ exports.displayTools = async (req, res) => {
 
 exports.createTool = async (req, res) => {
     try {
-        console.log(req.body);
-
+        req.body.date = req.body.date === "" ? null : new Date(req.body.date)
         const tool = await prisma.tool.create({
             data: {
                 name: req.body.name,
-                controlDate: new Date(req.body.date),
+                sn: req.body.sn,
+                controlDate: req.body.date
             }
         })
         res.redirect('/tools')
@@ -39,13 +37,15 @@ exports.createTool = async (req, res) => {
 
 exports.editTool = async (req, res) => {
     try {
+        req.body.date = req.body.date === "" ? null : new Date(req.body.date)
         const tool = await prisma.tool.update({
             where: {
-                id: parseInt(req.params.id),
+                id: parseInt(req.params.id)
             },
             data: {
                 name: req.body.name,
-                controlDate: new Date(req.body.date),
+                sn: req.body.sn,
+                controlDate: req.body.date
             }
         })
         res.redirect('/tools')
@@ -82,14 +82,45 @@ exports.percepTool = async (req, res) => {
                 aeronef: true
             }
         })
-        res.render("pages/dashboard/partials/technicians.twig", {
+        res.render("pages/dashboard/partials/perception.twig", {
             currentPath: res.locals.currentPath,
             login: req.session.login,
-            technicians: technicians
+            technicians: technicians,
+            toolId: parseInt(req.params.id),
+            perception: true
         })
-
     } catch (error) {
         res(error)
 
+    }
+}
+exports.postPercepTool = async (req, res) => {
+    try {
+        const tool = await prisma.tool.update({
+            where: {
+                id: parseInt(req.params.id)
+            },
+            data: {
+                userId: parseInt(req.body.userId)
+            }
+        })
+        res.redirect("/tools")
+    } catch (error) {
+        res(error)
+    }
+}
+exports.reintegerTool = async (req, res) => {
+    try {
+        const tool = await prisma.tool.update({
+            where: {
+                id: parseInt(req.params.id)
+            },
+            data: {
+                userId: null
+            }
+        })
+        res.redirect("/tools")
+    } catch (error) {
+        res(error)
     }
 }

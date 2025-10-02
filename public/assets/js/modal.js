@@ -33,6 +33,7 @@ editToolBtns.forEach(btn => {
             id: tableTool.getAttribute('data-tool-id'),
             name: tableTool.getAttribute('data-name'),
             date: tableTool.getAttribute('data-date'),
+            sn: tableTool.getAttribute('data-sn'),
         }
         console.log(tool);
         
@@ -100,6 +101,9 @@ function addToolModal() {
     modal.classList.add("fixed")
     form.setAttribute("action", "/tools")
     document.querySelector('#titleModal').textContent = "Ajouter un outil"
+        document.querySelector('#name').value = ""
+    document.querySelector('#sn').value = ""
+    document.querySelector('#date').valueAsDate = null
 }
 
 function updateToolModal(tool) {
@@ -110,6 +114,7 @@ function updateToolModal(tool) {
 
     document.querySelector('#titleModal').textContent = "Modifier l'outillage"
     document.querySelector('#name').value = tool.name
+    document.querySelector('#sn').value = tool.sn
     document.querySelector('#date').valueAsDate = null
 }
 

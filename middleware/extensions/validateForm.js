@@ -54,24 +54,27 @@ module.exports = Prisma.defineExtension({
 
                 return query(args)
             },
-            tool: {
-                $allOperations: async ({ operation, args, query }) => {
-                    if (operation == "create" || operation == "update") {
-                        const errors = {}
-
-                        if (!/^[A-Za-z0-9 ]$/.test(args.data.name)) {
-                            errors.immat = "Immat invalide (5 caractères alphabétiques obligatoire)"
-                        }
-
-                        if (Object.keys(errors).length > 0) {
-                            const error = new Error("Erreur de validation")
-                            error.details = errors
-                            throw error;
-                        }
+        },
+        tool: {
+            $allOperations: async ({ operation, args, query }) => {
+                if (operation == "create" || operation == "update") {
+                    const errors = {}
+                    if (!/[A-Za-z0-9 ]/.test(args.data.name)) {
+                        errors.name = "Nom invalide"
                     }
 
-                    return query(args)
+                    if (!/[A-Za-z0-9 ]/.test(args.data.sn)) {
+                        errors.sn = "SN invalide"
+                    }
+
+                    if (Object.keys(errors).length > 0) {
+                        const error = new Error("Erreur de validation")
+                        error.details = errors
+                        console.log(error);
+                        throw error;
+                    }
                 }
+                return query(args)
             }
         }
     }

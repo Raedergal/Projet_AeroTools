@@ -7,5 +7,7 @@ toolRouter.post('/tools', authGuard, toolController.createTool)
 toolRouter.post('/editTool/:id', authGuard, toolController.editTool)
 toolRouter.get('/deleteTool/:id', authGuard, toolController.deleteTool)
 toolRouter.get('/perception/:id', authGuard, toolController.percepTool)
+toolRouter.post('/perception/:id', authGuard, toolController.postPercepTool)
+toolRouter.post('/reinteger/:id', authGuard, toolController.reintegerTool)
 
 module.exports = toolRouter

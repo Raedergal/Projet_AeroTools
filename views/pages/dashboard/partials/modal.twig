@@ -17,7 +17,7 @@
 		<form class="flex flex-col gap-4 mt-6" action="/technicians" method="POST" id="formModal">
 
 			<!-- texte pour DB -->
-			{%	if currentPath == '/dashboard' %}
+			{%	if currentPath == '/dashboard' or currentPath == '/technicians' %}
 				<div class="flex flex-col gap-2">
 					<label for="lastName" class="text-sm font-medium text-gray-700">Nom</label>
 					<input type="text" id="lastName" name="lastName" class="input-form">
@@ -30,13 +30,17 @@
 				</div>
 
 				<div class="flex flex-col gap-2">
+					<label for="sn" class="text-sm font-medium text-gray-700">Numero de série</label>
+					<input type="text" id="sn" name="sn" class="input-form">
+				</div>
+
+				<div class="flex flex-col gap-2">
 					<label for="date" class="text-sm font-medium text-gray-700">Date de fin de validité</label>
 					<input type="date" id="date" name="date" class="input-form">
 				</div>
 			{% endif %}
 
 			{% if currentPath == '/technicians' %}
-
 				<div class="flex flex-col gap-2">
 					<label for="firstName" class="text-sm font-medium text-gray-700">Prénom</label>
 					<input type="text" id="firstName" name="firstName" class="input-form">
