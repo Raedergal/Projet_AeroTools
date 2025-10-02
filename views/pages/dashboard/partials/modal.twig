@@ -14,41 +14,56 @@
 
 		</div>
 
-		<form
-			class="flex flex-col gap-4 mt-6" action="/technicians" method="POST" id="formModal" >
+		<form class="flex flex-col gap-4 mt-6" action="/technicians" method="POST" id="formModal">
 
 			<!-- texte pour DB -->
+			{%	if currentPath == '/dashboard' %}
+				<div class="flex flex-col gap-2">
+					<label for="lastName" class="text-sm font-medium text-gray-700">Nom</label>
+					<input type="text" id="lastName" name="lastName" class="input-form">
+				</div>
+			{% endif %}
+			{% if currentPath == '/tools' %}
+				<div class="flex flex-col gap-2">
+					<label for="name" class="text-sm font-medium text-gray-700">Nom</label>
+					<input type="text" id="name" name="name" class="input-form">
+				</div>
 
-			<div class="flex flex-col gap-2">
-				<label for="lastName" class="text-sm font-medium text-gray-700">Nom</label>
-				<input type="text" id="lastName" name="lastName" class="input-form">
-			</div>
-			<div class="flex flex-col gap-2">
-				<label for="firstName" class="text-sm font-medium text-gray-700">Prénom</label>
-				<input type="text" id="firstName" name="firstName" class="input-form">
-			</div>
-			<div class="flex flex-col gap-2">
-				<label for="email" class="text-sm font-medium text-gray-700">Adresse mail</label>
-				<input type="email" id="email" name="email" class="input-form">
-			</div>
+				<div class="flex flex-col gap-2">
+					<label for="date" class="text-sm font-medium text-gray-700">Date de fin de validité</label>
+					<input type="date" id="date" name="date" class="input-form">
+				</div>
+			{% endif %}
 
-			<!-- Aeronef pour DB -->
+			{% if currentPath == '/technicians' %}
 
-			<div>
-				<label for="aeronef" class="block text-sm font-medium text-gray-700 py-4">Aeronefs (optionnel)</label>
-				<select id="aeronef" name="aeronef" class="bg-blue-500 text-sm font-semibold text-stone-50 rounded-lg block w-full p-2.5">
-					<option value="">Selectionne un aéronef</option>
-					{% for aeronef in aeronefs %}
-					<option value='{{aeronef.id}}'>{{aeronef.immat}}</option>
-					{% endfor %}
-				</select>
-			</div>
+				<div class="flex flex-col gap-2">
+					<label for="firstName" class="text-sm font-medium text-gray-700">Prénom</label>
+					<input type="text" id="firstName" name="firstName" class="input-form">
+				</div>
+				<div class="flex flex-col gap-2">
+					<label for="email" class="text-sm font-medium text-gray-700">Adresse mail</label>
+					<input type="email" id="email" name="email" class="input-form">
+				</div>
 
-			{# <div class="flex flex-col gap-2">
+				<!-- Aeronef pour DB -->
+
+				<div>
+					<label for="aeronef" class="block text-sm font-medium text-gray-700 py-4">Aeronefs (optionnel)</label>
+					<select id="aeronef" name="aeronef" class="bg-blue-500 text-sm font-semibold text-stone-50 rounded-lg block w-full p-2.5">
+						<option value="">Selectionne un aéronef</option>
+						{% for aeronef in aeronefs %}
+							<option value='{{aeronef.id}}'>{{aeronef.immat}}</option>
+						{% endfor %}
+					</select>
+				</div>
+
+				{# <div class="flex flex-col gap-2">
 				<label for="photo" class="text-sm font-medium text-gray-700">Photo</label>
 				<input type="file" name="photo" id="photo" accept="image/*" class="py-2 px-4 rounded-md shadow-sm text-base font-medium text-gray-800 bg-blue-200 hover:bg-blue-500 hover:text-gray-50 cursor-pointer">
-			</div> #}
+				</div> #}
 
+			{% endif %}
 			<div class="flex justify-end">
 				<button class="baseButton" id="validBtn" type="submit">Valider</button>
 			</div>

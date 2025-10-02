@@ -15,8 +15,4 @@ userRouter.post('/editUser/:id', authGuard, userController.editUser)
 
 
 
-
-
-
-
 module.exports = userRouter

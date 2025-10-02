@@ -6,7 +6,7 @@ module.exports = Prisma.defineExtension({
         user: {
             $allOperations: async ({ operation, args, query }) => {
                 if (operation == "create" || operation == "update") {
-                    
+
                     const errors = {}
                     if (!/^[a-zA-ZÀ-ÿ' -]{2,30}$/.test(args.data.lastName)) {
                         errors.lastName = "Nom invalide (pas de chiffre ni caractere speciaux)"
@@ -53,6 +53,25 @@ module.exports = Prisma.defineExtension({
                 }
 
                 return query(args)
+            },
+            tool: {
+                $allOperations: async ({ operation, args, query }) => {
+                    if (operation == "create" || operation == "update") {
+                        const errors = {}
+
+                        if (!/^[A-Za-z0-9 ]$/.test(args.data.name)) {
+                            errors.immat = "Immat invalide (5 caractères alphabétiques obligatoire)"
+                        }
+
+                        if (Object.keys(errors).length > 0) {
+                            const error = new Error("Erreur de validation")
+                            error.details = errors
+                            throw error;
+                        }
+                    }
+
+                    return query(args)
+                }
             }
         }
     }

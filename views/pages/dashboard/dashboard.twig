@@ -37,22 +37,18 @@
 				<div>
 					<h3 class="font-semibold text-2xl border-b pb-4 mb-6">
 						{% block h3 %}{% endblock %}
+						{% if currentPath == '/dashboard' or currentPath == '/createAeronef'%}Liste des outillages empruntés{% endif %}
 					</h3>
 
-{% block name %}{% endblock %}
-					{% if currentPath == '/dashboard' or currentPath == '/createAeronef' or currentPath == '/tools'%}
+					{% if currentPath == '/dashboard' %}
 						{% include "pages/dashboard/partials/tableDashboard.twig" %}
 					{% endif %}
 
 					{% block content %}{% endblock %}
 
 				</div>
-
 			</div>
-
 		</div>
-
-
 	</section>
 
 {% endblock %}

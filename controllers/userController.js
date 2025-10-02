@@ -88,10 +88,21 @@ exports.login = async (req, res) => {
 }
 
 exports.displayDashboard = async (req, res) => {
+    const tools = await prisma.tool.findMany({
+        where: {
+            NOT: {
+                userId: null
+            }
+        },
+        include: {
+            user: true
+        }
+    })
 
     res.render("pages/dashboard/dashboard.twig", {
         admin: req.session.admin,
         login: req.session.login,
+        tools: tools,
         dashboard: true
     })
 }

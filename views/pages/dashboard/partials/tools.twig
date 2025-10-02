@@ -1,0 +1,73 @@
+{% extends "pages/dashboard/dashboard.twig" %}
+{% block h3 %}Liste des outillages
+{% endblock %}
+{% block content %}
+
+	<div class="overflow-x-auto">
+		<table class="w-full border-separate border-spacing-y-3 ">
+
+			<thead>
+				<tr>
+					<th class="th-table w-4/10">
+						Outillage
+					</th>
+
+					<th class="th-table w-1/10">
+						Fin de validité
+					</th>
+
+					<th class="th-table w-2/10">
+						Nom de l'emprunteur
+					</th>
+					<th class="th-table w-3/10">
+						
+					</th>
+
+				</tr>
+			</thead>
+
+			<tbody>
+
+				{% for tool in tools %}
+					<tr  class="tableTool" data-tool-id="{{tool.id}}" data-name="{{tool.name}}" data-date="{{tool.controlDate|date("d/m/Y")}}">
+
+						<td class="px-6 py-3 font-light text-gray-800 bg-zinc-200 rounded-l-lg">
+							{{tool.name}}
+						</td>
+						<td class="td-table">
+							{{tool.controlDate|date("d/m/Y")}}
+						</td>
+						<td class="td-table">
+							{{tool.user.lastName}}
+							{{tool.user.firstName}}
+						</td>
+
+						<td class="td-table rounded-r-lg">
+							<div class="flex gap-4 justify-center">
+								<div class="bg-gray-50 p-2 rounded-full border-1 border-gray-400 hover:bg-blue-200 cursor-pointer editToolBtn">
+									<img class="w-5" src="/assets/images/editer.png" alt="">
+								</div>
+								<a class="bg-gray-50 p-2 rounded-full border-1 border-gray-400 hover:bg-blue-200" href="/deleteTool/{{tool.id}}">
+									<img class="w-5" src="/assets/images/supprimer.png" alt="">
+								</a>
+								<a class="overflow-x-hidden rounded-lg relative w-40 h-9 cursor-pointer flex items-center border border-blue-500 bg-blue-500 group hover:bg-blue-500 active:bg-blue-500 active:border-blue-500"
+                                    href="/preception/{{tool.id}}">
+									<span class="text-gray-200 font-semibold ml-8 transform group-hover:translate-x-20 transition-all duration-300">Perception</span>
+									<span class="absolute right-0 h-full w-10 rounded-lg bg-blue-500 flex items-center justify-center transform group-hover:translate-x-0 group-hover:w-full transition-all duration-300">
+										<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewbox="0 0 24 24">
+											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12h4m-2 2v-4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+										</svg>
+									</span>
+								</a>
+							</div>
+						</td>
+
+					</tr>
+				{% endfor %}
+
+			</tbody>
+
+		</table>
+	</div>
+
+{% endblock %}
