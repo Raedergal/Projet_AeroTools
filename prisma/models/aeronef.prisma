@@ -1,0 +1,5 @@
+model Aeronef {
+    id       Int       @id @default(autoincrement())
+    immat    String    @unique @db.VarChar(5)
+    users     User[]
+}

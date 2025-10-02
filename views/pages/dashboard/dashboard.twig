@@ -1,0 +1,58 @@
+{% extends "layouts/base.twig" %}
+
+{% block main %}
+
+	{% include "pages/dashboard/partials/modal.twig" %}
+
+	<section
+		class="flex h-[calc(100vh-4rem)] pb-4 bg-gray-100">
+
+		{# sidebar #}
+
+		{% include "pages/dashboard/partials/sideBar.twig" %}
+
+		{# main content #}
+
+		<div class="grow overflow-auto bg-slate-50 mt-6 mx-6 rounded-lg shadow-lg">
+
+			<div class="my-12 mx-10 bg-slate-50">
+
+				{% if dashboard %}
+
+					<div id="card-container" class="grid grid-cols-2 gap-10 mb-20 max-w-4/5 mx-auto">
+						<div class="bg-blue-100 rounded-lg py-8 px-10 w-full">
+							<img class="w-16 p-2 mb-6 border border-gray-300 rounded-md" src="/assets/images/outils.png" alt="">
+							<p class="font-semibold text-2xl mb-6">Total outillages perçus</p>
+							<span class="font-semibold text-4xl">100</span>
+						</div>
+						<div class="bg-blue-100 rounded-lg py-8 px-10 w-full">
+							<img class="w-16 p-2 mb-6 border border-gray-300 rounded-md" src="/assets/images/utilisateur.png" alt="">
+							<p class="font-semibold text-2xl mb-6">Nombre de mécaniciens emprunteurs</p>
+							<span class="font-semibold text-4xl">100</span>
+						</div>
+					</div>
+
+				{% endif %}
+
+				<div>
+					<h3 class="font-semibold text-2xl border-b pb-4 mb-6">
+						{% block h3 %}{% endblock %}
+					</h3>
+
+{% block name %}{% endblock %}
+					{% if currentPath == '/dashboard' or currentPath == '/createAeronef' or currentPath == '/tools'%}
+						{% include "pages/dashboard/partials/tableDashboard.twig" %}
+					{% endif %}
+
+					{% block content %}{% endblock %}
+
+				</div>
+
+			</div>
+
+		</div>
+
+
+	</section>
+
+{% endblock %}

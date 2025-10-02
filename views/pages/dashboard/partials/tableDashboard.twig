@@ -1,0 +1,65 @@
+<div class="overflow-x-auto">
+	<table class="w-full border-separate border-spacing-y-3 ">
+
+		<thead>
+			<tr>
+				<th class="th-table {{currentPath == '/tools' ? 'w-3/10' : 'w-5/10'}}">
+					Outillage
+				</th>
+				{% if currentPath == '/tools'%}
+					<th class="th-table w-3/10">
+						Date de fin de validité
+					</th>
+				{% endif %}
+				<th class="th-table {{currentPath == '/tools' ? 'w-3/20' : 'w-2/10'}}">
+					Nom
+				</th>
+				<th class="th-table {{currentPath == '/tools' ? 'w-3/20' : 'w-2/10'}}">
+					Prénom
+				</th>
+				<th class="th-table w-1/10">
+					Aéronef
+				</th>
+				{% if currentPath == '/tools'%}
+					<th class="th-table w-1/10">
+						Actions
+					</th>
+				{% endif %}
+			</tr>
+		</thead>
+
+		<tbody>
+
+			{% for tool in tools %}
+				<tr>
+					<td class="px-6 py-3 font-light text-gray-800 bg-zinc-200 rounded-l-lg">
+						{{tool.name}}
+					</td>
+					<td class="td-table">
+						Dupont
+					</td>
+					<td class="td-table">
+						Jean
+					</td>
+					<td class="td-table {{currentPath == '/tools' ? '' : 'rounded-r-lg'}}">
+						FMEAE
+					</td>
+					{% if currentPath == '/tools'%}
+						<td class="td-table rounded-r-lg">
+							<div class="flex gap-2 justify-center">
+								<div class="bg-gray-50 p-2 rounded-full border-1 border-gray-400 hover:bg-blue-200 cursor-pointer editUserBtn">
+									<img class="w-5" src="/assets/images/editer.png" alt="">
+								</div>
+								<a class="bg-gray-50 p-2 rounded-full border-1 border-gray-400 hover:bg-blue-200" href="/deleteTool/{{tool.id}}">
+									<img class="w-5" src="/assets/images/supprimer.png" alt="">
+								</a>
+							</div>
+						</td>
+					{% endif %}
+				</tr>
+			{% endfor %}
+
+		</tbody>
+
+	</table>
+</div>

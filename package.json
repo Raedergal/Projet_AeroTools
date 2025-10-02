@@ -1,0 +1,24 @@
+{
+  "name": "projet_aerotools",
+  "version": "1.0.0",
+  "description": "app pour gestion outil/atelier",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "buildTW": "tailwindcss -i ./src/source.css -o ./public/assets/css/output.css --watch"
+  },
+  "author": "mael lagardere",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.16.2",
+    "@tailwindcss/cli": "^4.1.13",
+    "bcrypt": "^6.0.0",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "tailwindcss": "^4.1.13",
+    "twig": "^1.17.1"
+  },
+  "prisma": {
+    "schema": "./prisma"
+  }
+}

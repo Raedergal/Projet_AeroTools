@@ -1,0 +1,17 @@
+model User {
+  id        Int      @id @default(autoincrement())
+  lastName  String   @db.VarChar(255)
+  firstName String   @db.VarChar(255)
+  email     String   @unique
+  password  String   @db.VarChar(255)
+  photo     String?  @db.VarChar(255)
+  role      Role     @default(USER)
+  tools     Tool[]
+  aeronef   Aeronef? @relation(fields: [aeronefId], references: [id])
+  aeronefId Int?
+}
+
+enum Role {
+  USER
+  ADMIN
+}

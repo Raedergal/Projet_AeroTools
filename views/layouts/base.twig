@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		{% block title %}
+			<title>Aerotools</title>
+		{% endblock %}
+		<link rel="stylesheet" href="/assets/css/output.css">
+	</head>
+
+	<body class="bg-zinc-200">
+		{% if login %}
+			{% include "/partials/header.twig" %}
+		{% endif %}
+
+		<main>
+			{% block main %}{% endblock %}
+		</main>
+
+		{% include "/partials/footer.twig" %}
+
+		<script src="./assets/js/modal.js"></script>
+	</body>
+</html>

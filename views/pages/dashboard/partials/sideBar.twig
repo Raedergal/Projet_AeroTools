@@ -1,0 +1,54 @@
+<div class="w-[275px] bg-slate-50 pt-12">
+	<div class="flex flex-col px-8 gap-8">
+		<a href="/dashboard" class={{dashboard ? 'sidebar-button-active' : 'sidebar-button'}}>
+			<img class="w-6" src={{dashboard ? '/assets/images/accueil_blanc.png' : '/assets/images/accueil.png'}} alt="">
+			Dashboard
+		</a>
+		<a href="/technicians" class={{currentPath == '/technicians' ? 'sidebar-button-active' : 'sidebar-button'}}>
+			<img class="w-6" src={{currentPath == '/technicians' ? "/assets/images/utilisateur_blanc.png" : '/assets/images/utilisateur.png'}} alt="">
+			Mécaniciens
+		</a>
+		<a href="/tools" class={{currentPath == '/tools' ? 'sidebar-button-active' : 'sidebar-button'}}>
+			<img class="w-6" src={{currentPath == '/tools' ? "/assets/images/reparation_blanc.png" : '/assets/images/reparation.png'}} alt="">
+			Outils
+		</a>
+
+		<div class="w-full border-t border-b-gray-200 mb-2"></div>
+
+		{% if currentPath == '/technicians' %}
+			<button id="createUser" class="py-2 px-4 rounded-lg text-md font-bold text-gray-800 bg-blue-100 hover:bg-blue-600 hover:text-gray-100 cursor-pointer gap-5 text-center">
+				Créer un utilisateur
+			</button>
+		{% endif %}
+
+		{% if currentPath == '/dashboard' %}
+			<a href="/createAeronef" class="py-2 px-4 rounded-lg text-md font-bold text-gray-800 bg-blue-100 hover:bg-blue-600 hover:text-gray-100 cursor-pointer gap-5 text-center">
+				Créer un aéronef
+			</a>
+		{% endif %}
+
+		{% if currentPath == '/tools' %}
+			<a href="/createTools" class="py-2 px-4 rounded-lg text-md font-bold text-gray-800 bg-blue-100 hover:bg-blue-600 hover:text-gray-100 cursor-pointer gap-5 text-center">
+				Créer un outils
+			</a>
+		{% endif %}
+
+
+		{% if duplicateImmat %}
+			<span class="error-form-dashboard">{{duplicateImmat}}</span>
+		{% elseif errors.immat %}
+			<span class="error-form-dashboard">{{errors.immat}}</span>
+		{% endif %}
+		{% if currentPath == '/createAeronef' %}
+			<form action="/createAeronef" method="POST">
+				<label for="immat" class="block mb-3 text-md font-bold text-gray-700 text-center">Immatriculation Aeronef</label>
+				<input type="text" name="immat" id="immat" class="input-form mb-4" placeholder="5 caractères sont requis">
+				<div class="w-full flex gap-2">
+					<button type="submit" class="w-1/2 py-2 px-4 rounded-lg text-md font-bold text-gray-800 bg-blue-100 hover:bg-blue-600 hover:text-gray-100 cursor-pointer text-center">Valider</button>
+					<a href="/cancelled" class="w-1/2 py-2 px-4 rounded-lg text-md font-bold text-gray-800 bg-blue-100 hover:bg-blue-600 hover:text-gray-100 cursor-pointer text-center">Annuler</a>
+				</div>
+			</form>
+		{% endif %}
+
+	</div>
+</div>

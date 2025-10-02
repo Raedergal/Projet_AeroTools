@@ -1,0 +1,78 @@
+{% extends "layouts/base.twig" %}
+
+{% block main %}
+
+	<section class="min-h-screen flex">
+		<div class="bg-gray-100 shrink-0 flex sm:grow-0 sm:w-[500px] flex-col justify-center py-12 px-16">
+			<div class="mb-20">
+				<h2 class="text-4xl font-extrabold text-gray-900 mb-6">
+					{% if admin %}
+						Connexion
+					{% else %}
+						Inscription
+					{% endif %}
+				</h2>
+				<form class="space-y-6 mb-4" action={{admin ? '/login' : '/register'}} method="POST">
+
+					{% if not admin %}
+						<div>
+							<label for="lastName" class="label-form">Nom</label>
+							<input type="text" id="lastName" name="lastName" placeholder="Votre nom de famille" class="input-form"/>
+							{% if errors.lastName %}
+								<p class="error-form">{{errors.lastName}}</p>
+							{% endif %}
+						</div>
+						<div>
+							<label for="firstName" class="label-form">Prénom</label>
+							<input type="text" id="firstName" name="firstName" placeholder="Votre prénom" class="input-form"/>
+							{% if errors.firstName %}
+								<p class="error-form">{{errors.firstName}}</p>
+							{% endif %}
+						</div>
+					{% endif %}
+
+					<div>
+						<label for="email" class="label-form">Adresse e-mail</label>
+						<input type="email" id="email" name="email" placeholder="Votre email" class="input-form"/>
+						{% if errors.mail %}
+							<p class="error-form">{{errors.mail}}</p>
+						{% endif %}
+						{% if duplicateEmail %}
+							<p class="error-form">{{duplicateEmail}}</p>
+						{% endif %}
+					</div>
+
+					<div>
+						<label for="password" class="label-form">Mot de passe</label>
+						<input type="password" id="password" name="password" placeholder="Mot de passe" class="input-form"/>
+						{% if errors.password %}
+							<p class="error-form">{{errors.password}}</p>
+						{% endif %}
+					</div>
+
+					{% if not admin %}
+						<div>
+							<label for="confirmPassword" class="label-form">Répétez votre mot de passe</label>
+							<input type="password" id="confirmPassword" name="confirmPassword" placeholder="Répétez votre mot de passe" class="input-form"/>
+							{% if confirmError %}
+								<p class="error-form">{{confirmError}}</p>
+							{% endif %}
+						</div>
+					{% endif %}
+
+					<button class="w-full baseButton">
+						{% if admin %}
+							Se connecter
+						{% else %}
+							S'inscrire
+						{% endif %}
+					</button>
+				</form>
+			</div>
+		</div>
+		<div class="hidden sm:block grow">
+			<img src="/assets/images/home-nh-90.jpg" alt="" class="h-full w-full object-cover"/>
+		</div>
+	</section>
+
+{% endblock %}

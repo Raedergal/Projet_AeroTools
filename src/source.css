@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@layer components {
+  .error-form {
+    @apply text-red-500 font-light text-sm ml-3;
+  }
+  .error-form-dashboard {
+    @apply text-red-500 font-light text-sm text-center
+  }
+  .baseButton{
+    @apply py-2 px-4 rounded-md shadow-sm text-base font-medium text-white bg-blue-500 hover:bg-blue-700 cursor-pointer
+  }
+  .sidebar-button-active{
+    @apply py-2 px-4 rounded-md text-base font-semibold text-gray-100 cursor-pointer flex gap-5 bg-blue-600
+  }
+  .sidebar-button{
+    @apply py-2 px-4 rounded-md text-base font-semibold text-gray-800 hover:bg-blue-100 cursor-pointer flex gap-5
+  }
+  .th-table{
+    @apply px-6 py-3 text-left font-bold text-gray-800 uppercase
+  }
+  .td-table{
+    @apply px-6 py-3 font-light text-gray-800 border-l border-gray-300 bg-zinc-200
+  }
+  .label-form{
+    @apply block mb-1 text-sm font-medium text-gray-700
+  }
+  .input-form{
+    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline focus:outline-gray-400 text-sm mb-1.5
+  }
+
+}

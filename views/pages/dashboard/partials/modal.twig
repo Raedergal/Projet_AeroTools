@@ -1,0 +1,57 @@
+<section id="modalContainer" class="hidden inset-0 z-50 flex items-center justify-center bg-gray-500/50 backdrop-blur-sm">
+
+	<div id="modalContent" class="bg-white rounded-lg shadow-lg w-full max-w-lg mx-4 p-6 sm:max-w-md max-h-5/6 overflow-auto">
+
+		<div class="flex justify-between items-center border-b pb-3">
+
+			<h3 class="text-lg font-semibold text-gray-900" id="titleModal"></h3>
+
+			<button id="closeBtn" type="button" class="text-gray-500 hover:text-blue-500 rounded-lg p-2">
+				<svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 14 14">
+					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l6 6m0 0 6 6M7 7l6-6M7 7L1 13"/>
+				</svg>
+			</button>
+
+		</div>
+
+		<form
+			class="flex flex-col gap-4 mt-6" action="/technicians" method="POST" id="formModal" >
+
+			<!-- texte pour DB -->
+
+			<div class="flex flex-col gap-2">
+				<label for="lastName" class="text-sm font-medium text-gray-700">Nom</label>
+				<input type="text" id="lastName" name="lastName" class="input-form">
+			</div>
+			<div class="flex flex-col gap-2">
+				<label for="firstName" class="text-sm font-medium text-gray-700">Prénom</label>
+				<input type="text" id="firstName" name="firstName" class="input-form">
+			</div>
+			<div class="flex flex-col gap-2">
+				<label for="email" class="text-sm font-medium text-gray-700">Adresse mail</label>
+				<input type="email" id="email" name="email" class="input-form">
+			</div>
+
+			<!-- Aeronef pour DB -->
+
+			<div>
+				<label for="aeronef" class="block text-sm font-medium text-gray-700 py-4">Aeronefs (optionnel)</label>
+				<select id="aeronef" name="aeronef" class="bg-blue-500 text-sm font-semibold text-stone-50 rounded-lg block w-full p-2.5">
+					<option value="">Selectionne un aéronef</option>
+					{% for aeronef in aeronefs %}
+					<option value='{{aeronef.id}}'>{{aeronef.immat}}</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			{# <div class="flex flex-col gap-2">
+				<label for="photo" class="text-sm font-medium text-gray-700">Photo</label>
+				<input type="file" name="photo" id="photo" accept="image/*" class="py-2 px-4 rounded-md shadow-sm text-base font-medium text-gray-800 bg-blue-200 hover:bg-blue-500 hover:text-gray-50 cursor-pointer">
+			</div> #}
+
+			<div class="flex justify-end">
+				<button class="baseButton" id="validBtn" type="submit">Valider</button>
+			</div>
+		</form>
+	</div>
+</section>

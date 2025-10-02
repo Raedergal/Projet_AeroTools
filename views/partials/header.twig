@@ -1,0 +1,41 @@
+<header class="flex items-center py-2 shadow-sm bg-slate-50 h-[4rem] sticky top-0">
+
+	<div class="w-[260px] mx-7">
+		<img class="w-full h-full" src="/assets/images/logo_aeroTools.png " alt="logo">
+	</div>
+
+	<div class="flex justify-between items-center w-full border-l">
+
+		<h2 class="font-semibold text-2xl pl-5">
+			{% if currentPath == "/dashboard" or  currentPath == "/createAeronef"%}
+                Dashboard
+            {% elseif currentPath == "/technicians" %}
+                Mécaniciens
+            {% elseif currentPath == "/tools"%}
+                Outils
+            {% endif %}
+		</h2>
+
+		<div class="flex border border-gray-400 px-2 py-2 w-xs rounded-sm focus-within:outline mr-10">
+			<label for="">
+				<img class="w-6" src="/assets/images/magnifying-glass.svg" alt="">
+			</label>
+			<input class="ml-1 w-full focus:outline-none" type="text">
+		</div>
+
+		<nav>
+			<ul class="flex justify-center items-center gap-4">
+				<li class="flex justify-center items-center">
+					<a class="rounded-full p-2 ring-2 ring-blue-200" href="/profile"><img class="w-6" src="/assets/images/equipement.png" alt=""></a>
+				</li>
+				<li class="flex justify-center items-center">
+					<a class="" href="/logout"><img class="w-10" src="/assets/images/se-deconnecter.png" alt=""></a>
+				</li>
+				<li>
+					<img src="" alt="">
+				</li>
+			</ul>
+		</nav>
+	</div>
+
+</header>
