@@ -36,11 +36,11 @@
 				{% for tool in tools %}
 					<tr class="tableTool" data-tool-id="{{tool.id}}" data-name="{{tool.name}}" data-sn="{{tool.sn}}" data-date="{{tool.controlDate|date("d/m/Y")}}">
 
-						<td class="px-6 py-3 font-light text-gray-800 bg-zinc-200 rounded-l-lg">
+						<td class="px-6 py-3 font-medium text-gray-800 bg-zinc-200 rounded-l-lg">
 							{{tool.name}}
 						</td>
 						<td class="td-table">
-							{{tool.sn}}
+							<span class="font-semibold text-red-600">{{tool.sn}}</span>
 						</td>
 						<td class="td-table">
                         {% if tool.controlDate != null %}
@@ -72,7 +72,7 @@
 								{% else %}
 									<form action="/reinteger/{{tool.id}}" method="POST">
 										<button class="overflow-x-hidden rounded-lg relative w-40 h-9 cursor-pointer flex items-center border border-red-400 bg-red-500 group hover:bg-red-500 active:bg-red-500 active:border-red-500" type="submit">
-											<span class="text-gray-200 font-semibold ml-8 transform group-hover:translate-x-20 transition-all duration-300">Reintegrer</span>
+											<span class="text-gray-200 font-semibold ml-8 transform group-hover:translate-x-20 transition-all duration-300">Réintegrer</span>
 											<span class="absolute right-0 h-full w-10 rounded-lg bg-red-500 flex items-center justify-center transform group-hover:translate-x-0 group-hover:w-full transition-all duration-300">
 												<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewbox="0 0 24 24">
 													<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12h4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>

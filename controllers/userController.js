@@ -5,7 +5,20 @@ const bcrypt = require('bcrypt')
 const prisma = new PrismaClient().$extends(validateForm).$extends(hashPasswordExtension)
 
 exports.displayRegister = async (req, res) => {
-    res.render("pages/register.twig")
+    try {
+        const admin = await prisma.user.findMany({
+            where: {
+                role: "ADMIN"
+            }
+        })
+        if (!admin) {
+            res.render("pages/register.twig")
+        } else {
+            res.redirect("/login")
+        }
+    } catch (error) {
+        res.send(error)
+    }
 }
 
 exports.postAdmin = async (req, res) => {
@@ -88,24 +101,49 @@ exports.login = async (req, res) => {
 }
 
 exports.displayDashboard = async (req, res) => {
-    const tools = await prisma.tool.findMany({
-        where: {
-            NOT: {
-                userId: null
+    try {
+        const toolsWithUser = await prisma.tool.count({
+            where: {
+                userId: { not: null }
             }
-        },
-        include: {
-            user: true
-        }
-    })
-
-    res.render("pages/dashboard/dashboard.twig", {
-        admin: req.session.admin,
-        login: req.session.login,
-        tools: tools,
-        dashboard: true
-    })
+        })
+        const userWithTool = await prisma.user.count({
+            where: {
+                tools: {
+                    some: {}
+                }
+            }
+        })
+        const tools = await prisma.tool.findMany({
+            where: {
+                userId: { not: null }
+            },
+            include: {
+                user: {
+                    include: {
+                        aeronef: true
+                    }
+                }
+            }
+        })
+        req.session.tools = tools
+        req.session.toolsWithUser = toolsWithUser
+        req.session.userWithTool = userWithTool
+        res.render("pages/dashboard/dashboard.twig", {
+            currentPath: res.locals.currentPath,
+            admin: req.session.admin,
+            login: req.session.login,
+            toolsWithUser: req.session.toolsWithUser,
+            userWithTool: req.session.userWithTool,
+            tools: req.session.tools,
+            dashboard: true
+        })
+    } catch (error) {
+        res.send(error)
+    }
 }
+
+
 
 exports.displayTechnicians = async (req, res) => {
     const technicians = await prisma.user.findMany({
@@ -145,7 +183,7 @@ exports.createTechnicians = async (req, res) => {
                 currentPath: res.locals.currentPath,
                 dashboard: true,
                 login: req.session.login,
-                duplicateEmail: "Email déjà utilisé"
+                duplicateEmail: true
             })
             res.redirect('/technicians')
         } else {
@@ -197,6 +235,28 @@ exports.editUser = async (req, res) => {
     }
 }
 
+exports.schedule = async (req, res) => {
+    try {
+        const tools = await prisma.tool.findMany({
+            where: {
+                controlDate: { not: null },
+            },
+        })
+        res.render("pages/dashboard/partials/schedule.twig", {
+            currentPath: res.locals.currentPath,
+            login: req.session.login,
+            tools: JSON.stringify(tools)
+        })
+    } catch (error) {
+        res.send(error)
+    }
+
+}
+
+exports.logout = async (req, res) => {
+    req.session.destroy()
+    res.redirect('/login')
+}
 
 exports.cancelled = async (req, res) => {
     res.redirect('/dashboard')

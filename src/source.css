@@ -20,7 +20,7 @@
     @apply px-6 py-3 text-left font-bold text-gray-800 uppercase
   }
   .td-table{
-    @apply px-3 py-2 font-light text-gray-800 border-l border-gray-300 bg-zinc-200
+    @apply px-3 py-2 font-medium text-gray-800 border-l border-gray-300 bg-zinc-200
   }
   .label-form{
     @apply block mb-1 text-sm font-medium text-gray-700

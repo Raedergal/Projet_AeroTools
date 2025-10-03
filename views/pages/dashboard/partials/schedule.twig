@@ -1,0 +1,35 @@
+{% extends "pages/dashboard/dashboard.twig" %}
+
+{% block content %}
+
+	<div id="calendar"></div>
+
+
+{% endblock %}
+
+{% block script %}
+	<script>
+
+let calendarEl = document.getElementById('calendar')
+let tools = {{ tools }}
+
+let events = tools.map(tool => ({
+title: "Envoi en verif " + tool.name + " SN: " + tool.sn,
+start: tool.controlDate.split("T")[0]
+}))
+
+let calendar = new FullCalendar.Calendar(calendarEl, {
+initialView: 'dayGridMonth',
+headerToolbar: {
+left: 'prev,next today',
+center: 'title',
+right: 'dayGridMonth,listMonth'
+},
+selectable: true,
+nowIndicator: true,
+events: events
+})
+
+calendar.render()
+	</script>
+{% endblock %}

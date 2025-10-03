@@ -1,21 +1,21 @@
-
 <div class="overflow-x-auto">
 	<table class="w-full border-separate border-spacing-y-3 ">
 
 		<thead>
 			<tr>
-				<th class="th-table w-5/10">
+				<th class="th-table w-3/10">
 					Outillage
 				</th>
-				{% if currentPath == '/tools'%}
-					<th class="th-table w-3/10">
-						Date de fin de validité
-					</th>
-				{% endif %}
 				<th class="th-table w-2/10">
-					Nom
+					Numéro de série
 				</th>
 				<th class="th-table w-2/10">
+					Date de fin de validité
+				</th>
+				<th class="th-table w-1/10">
+					Nom
+				</th>
+				<th class="th-table w-1/10">
 					Prénom
 				</th>
 				<th class="th-table w-1/10">
@@ -28,8 +28,14 @@
 
 			{% for tool in tools %}
 				<tr>
-					<td class="px-6 py-3 font-light text-gray-800 bg-zinc-200 rounded-l-lg">
+					<td class="px-6 py-3 font-medium text-gray-800 bg-zinc-200 rounded-l-lg">
 						{{tool.name}}
+					</td>
+					<td class="td-table">
+						<span class="font-semibold text-red-600">{{tool.sn}}</span>
+					</td>
+					<td class="td-table">
+						{{tool.controlDate|date("d/m/Y")}}
 					</td>
 					<td class="td-table">
 						{{tool.user.lastName}}
@@ -38,7 +44,7 @@
 						{{tool.user.firstName}}
 					</td>
 					<td class="td-table rounded-r-lg">
-						FMEAE
+						{{tool.user.aeronef.immat}}
 					</td>
 				</tr>
 			{% endfor %}
@@ -47,4 +53,3 @@
 
 	</table>
 </div>
-

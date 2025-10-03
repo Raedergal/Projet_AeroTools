@@ -6,22 +6,17 @@
 
 	<div class="flex justify-between items-center w-full border-l">
 
-		<h2 class="font-semibold text-2xl pl-5">
+		<h2 class="font-semibold text-3xl pl-5">
 			{% if currentPath == "/dashboard" or  currentPath == "/createAeronef"%}
                 Dashboard
             {% elseif currentPath == "/technicians" %}
                 Mécaniciens
             {% elseif currentPath == "/tools"%}
                 Outils
+            {% elseif currentPath == "/schedule"%}
+                Planification
             {% endif %}
 		</h2>
-
-		<div class="flex border border-gray-400 px-2 py-2 w-xs rounded-sm focus-within:outline mr-10">
-			<label for="">
-				<img class="w-6" src="/assets/images/magnifying-glass.svg" alt="">
-			</label>
-			<input class="ml-1 w-full focus:outline-none" type="text">
-		</div>
 
 		<nav>
 			<ul class="flex justify-center items-center gap-4">

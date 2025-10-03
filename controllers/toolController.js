@@ -86,8 +86,7 @@ exports.percepTool = async (req, res) => {
             currentPath: res.locals.currentPath,
             login: req.session.login,
             technicians: technicians,
-            toolId: parseInt(req.params.id),
-            perception: true
+            toolId: parseInt(req.params.id)
         })
     } catch (error) {
         res(error)

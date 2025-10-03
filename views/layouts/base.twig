@@ -6,6 +6,8 @@
 		{% block title %}
 			<title>Aerotools</title>
 		{% endblock %}
+		<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 		<link rel="stylesheet" href="/assets/css/output.css">
 	</head>
 
@@ -20,6 +22,9 @@
 
 		{% include "/partials/footer.twig" %}
 
+		<script src="./assets/js/app.js"></script>
+		{% block script %}{% endblock %}
 		<script src="./assets/js/modal.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 	</body>
 </html>

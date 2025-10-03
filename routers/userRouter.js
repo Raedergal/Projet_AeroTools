@@ -12,6 +12,8 @@ userRouter.get('/technicians', authGuard, userController.displayTechnicians)
 userRouter.post('/technicians', authGuard, userController.createTechnicians)
 userRouter.get('/deleteUser/:id', authGuard, userController.removeTechnician)
 userRouter.post('/editUser/:id', authGuard, userController.editUser)
+userRouter.get('/logout', authGuard, userController.logout)
+userRouter.get('/schedule', authGuard, userController.schedule)
 
 
 

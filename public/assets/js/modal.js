@@ -11,7 +11,7 @@ const form = document.querySelector('#formModal')
 editUserBtns.forEach(btn => {
     btn.addEventListener("click", () => {
         const card = btn.closest('.card')
-        
+
         const tech = {
             id: card.getAttribute('data-technician-id'),
             lastName: card.getAttribute('data-last-name'),
@@ -28,7 +28,7 @@ editToolBtns.forEach(btn => {
     btn.addEventListener("click", () => {
 
         const tableTool = btn.closest('.tableTool')
-        
+
         const tool = {
             id: tableTool.getAttribute('data-tool-id'),
             name: tableTool.getAttribute('data-name'),
@@ -36,12 +36,13 @@ editToolBtns.forEach(btn => {
             sn: tableTool.getAttribute('data-sn'),
         }
         console.log(tool);
-        
+
         updateToolModal(tool)
     })
 })
-
-closeBtn.addEventListener("click", closeModal)
+if (closeBtn) {
+    closeBtn.addEventListener("click", closeModal)
+}
 
 function closeModal() {
     modal.classList.remove("fixed")
@@ -101,7 +102,7 @@ function addToolModal() {
     modal.classList.add("fixed")
     form.setAttribute("action", "/tools")
     document.querySelector('#titleModal').textContent = "Ajouter un outil"
-        document.querySelector('#name').value = ""
+    document.querySelector('#name').value = ""
     document.querySelector('#sn').value = ""
     document.querySelector('#date').valueAsDate = null
 }

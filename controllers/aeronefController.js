@@ -4,6 +4,10 @@ const prisma = new PrismaClient().$extends(validateForm)
 
 exports.createAeronefDisplay = async (req, res) => {
     res.render("pages/dashboard/dashboard.twig", {
+        currentPath: res.locals.currentPath,
+        tools: req.session.tools,
+        toolsWithUser: req.session.toolsWithUser,
+        userWithTool: req.session.userWithTool,
         dashboard: true,
         login: true
     })

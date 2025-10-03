@@ -12,6 +12,10 @@
 			<img class="w-6" src={{currentPath == '/tools' or perception ? "/assets/images/reparation_blanc.png" : '/assets/images/reparation.png'}} alt="">
 			Outils
 		</a>
+		<a href="/schedule" class={{currentPath == '/schedule' ? 'sidebar-button-active' : 'sidebar-button'}}>
+			<img class="w-6" src={{currentPath == '/schedule' ? "/assets/images/calendrier_blanc.png" : '/assets/images/calendrier.png'}} alt="">
+			Planification
+		</a>
 
 		<div class="w-full border-t border-b-gray-200 mb-2"></div>
 
@@ -29,7 +33,7 @@
 
 		{% if currentPath == '/tools' %}
 			<a id="createToolBtn" class="py-2 px-4 rounded-lg text-md font-bold text-gray-800 bg-blue-100 hover:bg-blue-600 hover:text-gray-100 cursor-pointer gap-5 text-center">
-				Créer un outils
+				Créer un outil
 			</a>
 		{% endif %}
 
