@@ -26,17 +26,14 @@ editUserBtns.forEach(btn => {
 
 editToolBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-
+        
         const tableTool = btn.closest('.tableTool')
-
         const tool = {
             id: tableTool.getAttribute('data-tool-id'),
             name: tableTool.getAttribute('data-name'),
             date: tableTool.getAttribute('data-date'),
             sn: tableTool.getAttribute('data-sn'),
         }
-        console.log(tool);
-
         updateToolModal(tool)
     })
 })
@@ -65,10 +62,10 @@ if (createToolBtn) {
 //USER
 
 function addUserModal() {
+    document.querySelector('#titleModal').textContent = "Ajouter un technicien"
     modal.classList.remove("hidden")
     modal.classList.add("fixed")
     form.setAttribute("action", "/technicians")
-    document.querySelector('#titleModal').textContent = "Ajouter un technicien"
     document.querySelector('#lastName').value = ""
     document.querySelector('#firstName').value = ""
     document.querySelector('#email').value = ""
@@ -76,11 +73,11 @@ function addUserModal() {
 }
 
 function updateModal(tech) {
+    document.querySelector('#titleModal').textContent = "Modifier le technicien"
     modal.classList.remove("hidden")
     modal.classList.add("fixed")
     form.setAttribute("action", `/editUser/${tech.id}`)
 
-    document.querySelector('#titleModal').textContent = "Modifier le technicien"
     document.querySelector('#lastName').value = tech.lastName
     document.querySelector('#firstName').value = tech.firstName
     document.querySelector('#email').value = tech.email
@@ -98,22 +95,22 @@ function updateModal(tech) {
 //TOOL
 
 function addToolModal() {
+    document.querySelector('#titleModal').textContent = "Ajouter un outil"
     modal.classList.remove("hidden")
     modal.classList.add("fixed")
     form.setAttribute("action", "/tools")
-    document.querySelector('#titleModal').textContent = "Ajouter un outil"
     document.querySelector('#name').value = ""
     document.querySelector('#sn').value = ""
     document.querySelector('#date').valueAsDate = null
 }
 
 function updateToolModal(tool) {
+    document.querySelector('#titleModal').textContent = "Modifier l'outillage"
 
     modal.classList.remove("hidden")
     modal.classList.add("fixed")
     form.setAttribute("action", `/editTool/${tool.id}`)
 
-    document.querySelector('#titleModal').textContent = "Modifier l'outillage"
     document.querySelector('#name').value = tool.name
     document.querySelector('#sn').value = tool.sn
     document.querySelector('#date').valueAsDate = null

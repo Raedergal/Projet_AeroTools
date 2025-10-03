@@ -14,7 +14,7 @@
 				</h2>
 				<form class="space-y-6 mb-4" action={{admin ? '/login' : '/register'}} method="POST">
 
-					{% if not admin %}
+					{% if not admin and currentPath == "/register" %}
 						<div>
 							<label for="lastName" class="label-form">Nom</label>
 							<input type="text" id="lastName" name="lastName" placeholder="Votre nom de famille" class="input-form"/>
@@ -50,7 +50,7 @@
 						{% endif %}
 					</div>
 
-					{% if not admin %}
+					{% if not admin and currentPath == "/register" %}
 						<div>
 							<label for="confirmPassword" class="label-form">Répétez votre mot de passe</label>
 							<input type="password" id="confirmPassword" name="confirmPassword" placeholder="Répétez votre mot de passe" class="input-form"/>

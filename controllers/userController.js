@@ -1,6 +1,7 @@
 const { PrismaClient } = require("../generated/prisma/client")
 const hashPasswordExtension = require('../middleware/extensions/hashPassword')
 const validateForm = require("../middleware/extensions/validateForm")
+
 const bcrypt = require('bcrypt')
 const prisma = new PrismaClient().$extends(validateForm).$extends(hashPasswordExtension)
 
@@ -87,14 +88,15 @@ exports.login = async (req, res) => {
         if (bcrypt.compareSync(req.body.password, admin.password) || bcrypt.compareSync(req.body.password, user.password)) {
             if (admin) {
                 req.session.admin = admin
-                req.session.login = true
             } else {
                 req.session.user = user
             }
+            req.session.login = true
             res.redirect('/dashboard')
         }
     } catch (error) {
         res.render("pages/login.twig", {
+            currentPath: res.locals.currentPath,
             error: error
         })
     }
@@ -166,6 +168,8 @@ exports.displayTechnicians = async (req, res) => {
 }
 
 exports.createTechnicians = async (req, res) => {
+    console.log(req.file);
+
     try {
         const user = await prisma.user.create({
             data: {
@@ -173,7 +177,8 @@ exports.createTechnicians = async (req, res) => {
                 firstName: req.body.firstName,
                 email: req.body.email,
                 password: req.body.email,
-                aeronefId: parseInt(req.body.aeronef)
+                aeronefId: parseInt(req.body.aeronef),
+                photo: "/assets/uploads/" + req.file.filename
             }
         })
         res.redirect('/technicians')
@@ -185,7 +190,6 @@ exports.createTechnicians = async (req, res) => {
                 login: req.session.login,
                 duplicateEmail: true
             })
-            res.redirect('/technicians')
         } else {
             res.render('pages/dashboard/dashboard.twig', {
                 currentPath: res.locals.currentPath,

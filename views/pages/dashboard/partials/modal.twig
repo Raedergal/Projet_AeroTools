@@ -14,7 +14,7 @@
 
 		</div>
 
-		<form class="flex flex-col gap-4 mt-6" action="/technicians" method="POST" id="formModal">
+		<form class="flex flex-col gap-4 mt-6" action="/technicians" method="POST" id="formModal" enctype="multipart/form-data">
 
 			<!-- texte pour DB -->
 			{%	if currentPath == '/dashboard' or currentPath == '/technicians' %}
@@ -62,10 +62,10 @@
 					</select>
 				</div>
 
-				{# <div class="flex flex-col gap-2">
+				<div class="flex flex-col gap-2">
 				<label for="photo" class="text-sm font-medium text-gray-700">Photo</label>
 				<input type="file" name="photo" id="photo" accept="image/*" class="py-2 px-4 rounded-md shadow-sm text-base font-medium text-gray-800 bg-blue-200 hover:bg-blue-500 hover:text-gray-50 cursor-pointer">
-				</div> #}
+				</div>
 
 			{% endif %}
 			<div class="flex justify-end">
