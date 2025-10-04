@@ -36,22 +36,21 @@
 
 				<div>
 
-					{% if not currentPath == '/schedule' %}
-						<h3 class="font-semibold text-2xl border-b pb-4 mb-6"> {% block h3 %}{% endblock %}
-							</h3>
-						{% endif %}
+					{% if currentPath != '/schedule' %}
+						{% block h3 %}{% endblock %}
+					{% endif %}
 
 
-						{% if currentPath == '/dashboard' or currentPath == '/createAeronef' %}
-							<h3 class="font-semibold text-2xl border-b pb-4 mb-6">Liste des outils empruntés</h3>
-							{% include "pages/dashboard/partials/tableDashboard.twig" %}
-						{% endif %}
+					{% if currentPath == '/dashboard' or currentPath == '/createAeronef' %}
+						<h3 class="font-semibold text-2xl border-b pb-4 mb-6">Liste des outils empruntés</h3>
+						{% include "pages/dashboard/partials/tableDashboard.twig" %}
+					{% endif %}
 
-						{% block content %}{% endblock %}
+					{% block content %}{% endblock %}
 
-					</div>
 				</div>
 			</div>
-		</section>
+		</div>
+	</section>
 
-	{% endblock %}
+{% endblock %}

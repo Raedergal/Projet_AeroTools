@@ -141,6 +141,7 @@ exports.displayDashboard = async (req, res) => {
         req.session.tools = tools
         req.session.toolsWithUser = toolsWithUser
         req.session.userWithTool = userWithTool
+        
         res.render("pages/dashboard/dashboard.twig", {
             currentPath: res.locals.currentPath,
             admin: req.session.admin,
