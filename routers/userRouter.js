@@ -12,7 +12,7 @@ userRouter.get('/cancelled', authGuard, userController.cancelled)
 userRouter.get('/technicians', authGuard, userController.displayTechnicians)
 userRouter.post('/technicians', upload.single("photo"), authGuard, userController.createTechnicians)
 userRouter.get('/deleteUser/:id', authGuard, userController.removeTechnician)
-userRouter.post('/editUser/:id', authGuard, userController.editUser)
+userRouter.post('/editUser/:id',upload.single("photo"), authGuard, userController.editUser)
 userRouter.get('/schedule', authGuard, userController.schedule)
 userRouter.get('/logout', authGuard, userController.logout)
 

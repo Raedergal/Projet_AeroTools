@@ -26,7 +26,7 @@ editUserBtns.forEach(btn => {
 
 editToolBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-        
+
         const tableTool = btn.closest('.tableTool')
         const tool = {
             id: tableTool.getAttribute('data-tool-id'),
@@ -66,6 +66,7 @@ function addUserModal() {
     modal.classList.remove("hidden")
     modal.classList.add("fixed")
     form.setAttribute("action", "/technicians")
+    form.setAttribute("enctype", "multipart/form-data")
     document.querySelector('#lastName').value = ""
     document.querySelector('#firstName').value = ""
     document.querySelector('#email').value = ""
@@ -77,7 +78,7 @@ function updateModal(tech) {
     modal.classList.remove("hidden")
     modal.classList.add("fixed")
     form.setAttribute("action", `/editUser/${tech.id}`)
-
+    form.setAttribute("enctype", "multipart/form-data")
     document.querySelector('#lastName').value = tech.lastName
     document.querySelector('#firstName').value = tech.firstName
     document.querySelector('#email').value = tech.email

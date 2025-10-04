@@ -178,7 +178,6 @@ exports.displayTechnicians = async (req, res) => {
 }
 
 exports.createTechnicians = async (req, res) => {
-    console.log(req.file);
 
     try {
         const user = await prisma.user.create({
@@ -224,9 +223,8 @@ exports.removeTechnician = async (req, res) => {
 }
 
 exports.editUser = async (req, res) => {
-    const aeronefId = req.body.aeronef === "" ? null : parseInt(req.body.aeronef)
-
     try {
+        const fileName = req.file ? "/assets/uploads/" + req.file.filename : undefined
         const user = await prisma.user.update({
             where: {
                 id: parseInt(req.params.id),
@@ -235,7 +233,8 @@ exports.editUser = async (req, res) => {
                 lastName: req.body.lastName,
                 firstName: req.body.firstName,
                 email: req.body.email,
-                aeronefId: aeronefId
+                aeronefId: req.body.aeronef ? parseInt(req.body.aeronef) : null,
+                photo: fileName
             }
         })
         res.redirect('/technicians')
