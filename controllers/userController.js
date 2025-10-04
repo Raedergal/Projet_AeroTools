@@ -7,16 +7,15 @@ const prisma = new PrismaClient().$extends(validateForm).$extends(hashPasswordEx
 
 exports.displayRegister = async (req, res) => {
     try {
-        const admin = await prisma.user.findMany({
+        const admin = await prisma.user.findFirst({
             where: {
                 role: "ADMIN"
             }
         })
-        if (!admin) {
-            res.render("pages/register.twig")
-        } else {
-            res.redirect("/login")
+        if (admin) {
+            return res.redirect("/login")
         }
+        res.render("pages/register.twig")
     } catch (error) {
         res.send(error)
     }
@@ -55,49 +54,60 @@ exports.postAdmin = async (req, res) => {
 }
 
 exports.displayLogin = async (req, res) => {
-    const admin = await prisma.user.findMany({
-        where: {
-            role: "ADMIN"
-        }
-    })
+    try {
+        const admin = await prisma.user.findFirst({
+            where: {
+                role: "ADMIN"
+            }
+        })
+        if (admin) {
+            res.render("pages/register.twig", {
+                admin:admin,
+                login: false,
+                currentPath: res.locals.currentPath,
+            })
+        } else { res.redirect("/register") }
 
-    if (admin) {
+    } catch (error) {
         res.render("pages/login.twig", {
-            admin: admin,
+            error: "Erreur interne, merci de réessayer.",
             login: false
         })
-    } else {
-        res.redirect('/register')
     }
 }
 
 exports.login = async (req, res) => {
     try {
-        const admin = await prisma.user.findUnique({
-            where: {
-                email: req.body.email,
-                role: "ADMIN"
-            }
-        })
         const user = await prisma.user.findUnique({
-            where: {
-                email: req.body.email,
-                role: "USER"
-            }
+            where: { email: req.body.email }
         })
-        if (bcrypt.compareSync(req.body.password, admin.password) || bcrypt.compareSync(req.body.password, user.password)) {
-            if (admin) {
-                req.session.admin = admin
-            } else {
-                req.session.user = user
-            }
-            req.session.login = true
-            res.redirect('/dashboard')
+
+        if (!user) {
+            const error = new Error("Mot de passe ou email non correspondant")
+            error.login = error.message
+            throw error
         }
+
+        const validPassword = bcrypt.compareSync(req.body.password, user.password)
+        if (!validPassword) {
+            const error = new Error("Mot de passe non correspondant")
+            error.password = error.message
+            throw error
+        }
+
+        if (user.role === "ADMIN") {
+            req.session.admin = user
+        } else {
+            req.session.user = user
+        }
+        req.session.login = true
+        res.redirect('/dashboard')
     } catch (error) {
         res.render("pages/login.twig", {
             currentPath: res.locals.currentPath,
-            error: error
+            errorLogin: error.login ? error.login : null,
+            errorPassword: error.password ? error.password : null,
+            login: false
         })
     }
 }
