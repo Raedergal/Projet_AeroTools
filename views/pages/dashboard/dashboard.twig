@@ -17,7 +17,7 @@
 
 			<div class="my-12 mx-10 bg-slate-50">
 
-				{% if dashboard %}
+				{% if dashboard and user.role == "ADMIN" %}
 
 					<div id="card-container" class="grid grid-cols-2 gap-10 mb-20 max-w-4/5 mx-auto">
 						<div class="bg-blue-100 rounded-lg py-8 px-10 w-full">
@@ -40,11 +40,17 @@
 						{% block h3 %}{% endblock %}
 					{% endif %}
 
-
-					{% if currentPath == '/dashboard' or currentPath == '/createAeronef' %}
-						<h3 class="font-semibold text-2xl border-b pb-4 mb-6">Liste des outils empruntés</h3>
-						{% include "pages/dashboard/partials/tableDashboard.twig" %}
+					{% if user.role == "ADMIN" %}
+						{% if currentPath == '/dashboard' or currentPath == '/createAeronef' %}
+							<h3 class="font-semibold text-2xl border-b pb-4 mb-6">Liste des outils empruntés</h3>
+							{% include "pages/dashboard/partials/tableDashboard.twig" %}
+						{% endif %}
 					{% endif %}
+					{% if user.role == "USER" %}
+						<h3 class="font-semibold text-2xl border-b pb-4 mb-6">Liste des outillages empruntés</h3>
+						{% include "pages/dashboard/partials/tableDashboardUser.twig" %}
+					{% endif %}
+
 
 					{% block content %}{% endblock %}
 

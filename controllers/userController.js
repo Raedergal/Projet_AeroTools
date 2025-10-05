@@ -3,6 +3,7 @@ const hashPasswordExtension = require('../middleware/extensions/hashPassword')
 const validateForm = require("../middleware/extensions/validateForm")
 
 const bcrypt = require('bcrypt')
+const prismaNoHash = new PrismaClient().$extends(validateForm)
 const prisma = new PrismaClient().$extends(validateForm).$extends(hashPasswordExtension)
 
 exports.displayRegister = async (req, res) => {
@@ -62,7 +63,7 @@ exports.displayLogin = async (req, res) => {
         })
         if (admin) {
             res.render("pages/register.twig", {
-                admin:admin,
+                admin: admin,
                 login: false,
                 currentPath: res.locals.currentPath,
             })
@@ -95,19 +96,48 @@ exports.login = async (req, res) => {
             throw error
         }
 
-        if (user.role === "ADMIN") {
-            req.session.admin = user
-        } else {
-            req.session.user = user
+        req.session.user = user
+
+        const emailPassword = bcrypt.compareSync(user.email, user.password)
+        if (emailPassword) {
+            return res.render("pages/changePassword.twig", {
+                login: false
+            })
         }
+
         req.session.login = true
         res.redirect('/dashboard')
+
     } catch (error) {
         res.render("pages/login.twig", {
             currentPath: res.locals.currentPath,
             errorLogin: error.login ? error.login : null,
             errorPassword: error.password ? error.password : null,
             login: false
+        })
+    }
+}
+
+exports.changePassword = async (req, res) => {
+    try {
+        if (req.body.password == req.body.confirmPassword) {
+            const user = await prisma.user.update({
+                where: {
+                    id: parseInt(req.session.user.id),
+                },
+                data: {
+                    password: req.body.password,
+                }
+            })
+        } else {
+            const error = new Error("Mot de passe non correspondant")
+            error.confirmPassword = error.message
+            throw error
+        }
+        res.redirect('/login')
+    } catch (error) {
+        res.render('pages/changePassword.twig', {
+            confirmError: error.confirmPassword ? error.confirmPassword : null
         })
     }
 }
@@ -141,10 +171,10 @@ exports.displayDashboard = async (req, res) => {
         req.session.tools = tools
         req.session.toolsWithUser = toolsWithUser
         req.session.userWithTool = userWithTool
-        
+
         res.render("pages/dashboard/dashboard.twig", {
             currentPath: res.locals.currentPath,
-            admin: req.session.admin,
+            user: req.session.user,
             login: req.session.login,
             toolsWithUser: req.session.toolsWithUser,
             userWithTool: req.session.userWithTool,
@@ -171,6 +201,7 @@ exports.displayTechnicians = async (req, res) => {
     const aeronefs = await prisma.aeronef.findMany()
 
     res.render("pages/dashboard/partials/technicians.twig", {
+        user: req.session.user,
         currentPath: res.locals.currentPath,
         technicians: technicians,
         aeronefs: aeronefs,
@@ -226,7 +257,7 @@ exports.removeTechnician = async (req, res) => {
 exports.editUser = async (req, res) => {
     try {
         const fileName = req.file ? "/assets/uploads/" + req.file.filename : undefined
-        const user = await prisma.user.update({
+        const user = await prismaNoHash.user.update({
             where: {
                 id: parseInt(req.params.id),
             },
@@ -242,9 +273,11 @@ exports.editUser = async (req, res) => {
     } catch (error) {
         if (error.code == 'P2002') {
             res.send(error)
+            res.redirect('/technicians')
         }
         else {
-            res.send(error)
+            console.log(error);
+            res.redirect('/technicians')
         }
     }
 }
@@ -257,6 +290,7 @@ exports.schedule = async (req, res) => {
             },
         })
         res.render("pages/dashboard/partials/schedule.twig", {
+            user: req.session.user,
             currentPath: res.locals.currentPath,
             login: req.session.login,
             tools: JSON.stringify(tools)

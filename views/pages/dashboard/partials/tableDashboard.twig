@@ -27,6 +27,7 @@
 		<tbody>
 
 			{% for tool in tools %}
+
 				<tr>
 					<td class="px-6 py-3 font-medium text-gray-800 bg-zinc-200 rounded-l-lg">
 						{{tool.name}}
@@ -38,15 +39,16 @@
 						{{tool.controlDate|date("d/m/Y")}}
 					</td>
 					<td class="td-table">
-						{{tool.user.lastName}}
+						{{tool.user.lastName|capitalize}}
 					</td>
 					<td class="td-table">
-						{{tool.user.firstName}}
+						{{tool.user.firstName|capitalize}}
 					</td>
 					<td class="td-table rounded-r-lg">
 						{{tool.user.aeronef.immat}}
 					</td>
 				</tr>
+
 			{% endfor %}
 
 		</tbody>

@@ -4,6 +4,8 @@
 			<img class="w-6" src={{dashboard ? '/assets/images/accueil_blanc.png' : '/assets/images/accueil.png'}} alt="">
 			Dashboard
 		</a>
+		{% if user.role == "ADMIN" %}
+		
 		<a href="/technicians" class={{currentPath == '/technicians' ? 'sidebar-button-active' : 'sidebar-button'}}>
 			<img class="w-6" src={{currentPath == '/technicians' ? "/assets/images/utilisateur_blanc.png" : '/assets/images/utilisateur.png'}} alt="">
 			Mécaniciens
@@ -43,6 +45,10 @@
 		{% elseif errors.immat %}
 			<span class="error-form-dashboard">{{errors.immat}}</span>
 		{% endif %}
+		{% if duplicateSerialNmb %}
+			<span class="error-form-dashboard">{{duplicateSerialNmb}}</span>
+		{% endif %}
+		
 		{% if currentPath == '/createAeronef' %}
 			<form action="/createAeronef" method="POST">
 				<label for="immat" class="block mb-3 text-md font-bold text-gray-700 text-center">Immatriculation Aeronef</label>
@@ -54,5 +60,6 @@
 			</form>
 		{% endif %}
 
+		{% endif %}
 	</div>
 </div>

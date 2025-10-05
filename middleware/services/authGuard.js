@@ -6,7 +6,7 @@ const authGuard = async (req, res, next) => {
         if (req.session) {
             const user = await prisma.user.findUnique({
                 where: {
-                    id: req.session.admin.id
+                    id: req.session.user.id
                 }
             })
             if (user) {

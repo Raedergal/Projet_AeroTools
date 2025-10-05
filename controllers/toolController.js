@@ -9,6 +9,7 @@ exports.displayTools = async (req, res) => {
         }
     })
     res.render("pages/dashboard/partials/tools.twig", {
+        user: req.session.user,
         currentPath: res.locals.currentPath,
         login: req.session.login,
         tools: tools
@@ -51,10 +52,10 @@ exports.editTool = async (req, res) => {
         res.redirect('/tools')
     } catch (error) {
         if (error.code == 'P2002') {
-            res.send(error)
+            res.redirect('/tools')
         }
         else {
-            res.send(error)
+            res.redirect('/tools')
         }
     }
 }
@@ -83,10 +84,12 @@ exports.percepTool = async (req, res) => {
             }
         })
         res.render("pages/dashboard/partials/perception.twig", {
+            user: req.session.user,
             currentPath: res.locals.currentPath,
             login: req.session.login,
             technicians: technicians,
-            toolId: parseInt(req.params.id)
+            toolId: parseInt(req.params.id),
+            perception: true
         })
     } catch (error) {
         res(error)

@@ -1,0 +1,45 @@
+
+	<div class="overflow-x-auto">
+		<table class="w-full border-separate border-spacing-y-3 ">
+
+			<thead>
+				<tr>
+					<th class="th-table w-4/10">
+						Outillage
+					</th>
+
+					<th class="th-table w-3/10">
+						Numéro série
+					</th>
+
+					<th class="th-table w-3/10">
+						Fin de validité
+					</th>
+				</tr>
+			</thead>
+
+			<tbody>
+
+				{% for tool in tools %}
+					{% if tool.userId == user.id %}
+						<tr class="tableTool">
+
+							<td class="px-6 py-3 font-medium text-gray-800 bg-zinc-200 rounded-l-lg">
+								{{tool.name}}
+							</td>
+							<td class="td-table">
+								<span class="font-semibold text-red-600">{{tool.sn}}</span>
+							</td>
+							<td class="td-table">
+								{% if tool.controlDate != null %}
+									{{tool.controlDate|date("d/m/Y")}}
+								{% endif %}
+							</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+
+			</tbody>
+
+		</table>
+	</div>
